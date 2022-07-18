@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "helpmobile",
+    "slug": "helpmobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
