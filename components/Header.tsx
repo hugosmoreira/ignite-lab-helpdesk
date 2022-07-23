@@ -1,29 +1,37 @@
-import { Text, Button, IButtonProps, useTheme } from 'native-base';
+import { Heading, HStack, IconButton, useTheme, StyledProps } from 'native-base';
+import { CaretLeft } from 'phosphor-react-native';
+import { useNavigation } from '@react-navigation/native';
 
-type Props = IButtonProps & {
+type Props = StyledProps & {
   title: string;
-  isActive?: boolean;
-  type: 'open' | 'closed';
 }
 
-export function Filter({ title, isActive = false, type, ...rest }: Props) {
+export function Header({ title, ...rest }: Props) {
   const { colors } = useTheme();
+  const navigation = useNavigation();
 
-  const colorType = type === 'open' ? colors.secondary[700] : colors.green[300];
+  function handleGoBack() {
+    navigation.goBack();
+  }
 
   return (
-    <Button
-      variant="outline"
-      borderWidth={isActive ? 1 : 0}
-      borderColor={colorType}
-      bgColor="gray.600"
-      flex={1}
-      size="sm"
+    <HStack
+      w="full"
+      justifyContent="space-between"
+      alignItems="center"
+      bg="gray.600"
+      pb={6}
+      pt={12}
       {...rest}
     >
-      <Text color={isActive ? colorType : "gray.300"} fontSize="xs" textTransform="uppercase">
+      <IconButton
+        icon={<CaretLeft color={colors.gray[200]} size={24} />}
+        onPress={handleGoBack}
+      />
+
+      <Heading color="gray.100" textAlign="center" fontSize="lg" flex={1} ml={-6}>
         {title}
-      </Text>
-    </Button>
+      </Heading>
+    </HStack>
   );
 }
